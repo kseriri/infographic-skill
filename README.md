@@ -36,12 +36,16 @@ Claude Code 内で以下を実行：
 インストール後、API キーを設定：
 
 ```bash
-# 方法1: 環境変数（シェルに追加）
-export Google_Image_API="your-api-key-here"
-
-# 方法2: グローバル設定ファイル（推奨）
+# 推奨: グローバル設定ファイル
 mkdir -p ~/.config/infographic-skill
 echo 'Google_Image_API=your-api-key-here' > ~/.config/infographic-skill/.env
+```
+
+または `.zshrc` / `.bashrc` に環境変数を追加：
+
+```bash
+echo 'export Google_Image_API="your-api-key-here"' >> ~/.zshrc
+source ~/.zshrc
 ```
 
 ### Option B: リポジトリをクローン
