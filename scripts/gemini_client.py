@@ -56,19 +56,20 @@ def get_api_key(project_root: Path) -> str:
     Search order:
         1. Environment variable ``Google_Image_API``
         2. ``.env`` in the current working directory (user's project)
-        3. ``.env`` in the script's project root (plugin install location)
+        3. ``~/.config/infographic-skill/.env``
+        4. ``.env`` in the script's project root (plugin install location)
     """
     key = os.environ.get("Google_Image_API")
     if key:
         return key
 
-    # Search order: cwd (user's project) → home dir → plugin root
+    # Search order: cwd (user's project) → XDG config → plugin root
     search_paths = []
     cwd = Path.cwd()
-    home_env = Path.home() / ".env"
+    xdg_env = Path.home() / ".config" / "infographic-skill" / ".env"
     if cwd != project_root:
         search_paths.append(cwd / ".env")
-    search_paths.append(home_env)
+    search_paths.append(xdg_env)
     search_paths.append(project_root / ".env")
 
     for env_path in search_paths:
@@ -79,7 +80,8 @@ def get_api_key(project_root: Path) -> str:
 
     print(
         "Error: API key not found.\n"
-        "Set the 'Google_Image_API' environment variable or add it to .env\n"
+        "Set the 'Google_Image_API' environment variable or add it to:\n"
+        "  ~/.config/infographic-skill/.env\n"
         f"Searched: {', '.join(str(p) for p in search_paths)}",
         file=sys.stderr,
     )
