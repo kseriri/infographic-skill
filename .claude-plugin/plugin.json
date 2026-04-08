@@ -1,7 +1,7 @@
 {
   "name": "infographic",
   "description": "Generate infographic and slide images using Google Gemini API. Specialized for business diagrams, framework charts, and motif illustrations.",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "author": {
     "name": "kseriri"
   },

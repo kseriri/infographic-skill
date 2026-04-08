@@ -62,11 +62,13 @@ def get_api_key(project_root: Path) -> str:
     if key:
         return key
 
-    # Search cwd first (user's project), then plugin root
+    # Search order: cwd (user's project) → home dir → plugin root
     search_paths = []
     cwd = Path.cwd()
+    home_env = Path.home() / ".env"
     if cwd != project_root:
         search_paths.append(cwd / ".env")
+    search_paths.append(home_env)
     search_paths.append(project_root / ".env")
 
     for env_path in search_paths:
