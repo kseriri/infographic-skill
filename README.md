@@ -36,7 +36,7 @@ Claude Code 内で以下を実行：
 インストール後、API キーを設定：
 
 ```bash
-# 推奨: グローバル設定ファイル
+# 推奨: グローバル設定ファイル（全プロジェクト共通で使える）
 mkdir -p ~/.config/infographic-skill
 echo 'Google_Image_API=your-api-key-here' > ~/.config/infographic-skill/.env
 ```
@@ -48,6 +48,8 @@ echo 'export Google_Image_API="your-api-key-here"' >> ~/.zshrc
 source ~/.zshrc
 ```
 
+> **Note:** ターミナルで `export Google_Image_API=...` を直接実行しても、Claude Code はツールごとに別シェルを起動するため引き継がれません。必ず `.zshrc` に追記するか、上記の設定ファイルを使ってください。
+
 ### Option B: リポジトリをクローン
 
 ```bash
@@ -57,20 +59,19 @@ cp .env.example .env
 # .env を編集して API キーを設定
 ```
 
-Claude Code を起動すると `.claude/skills/infographic/SKILL.md` が自動認識されます。
+Claude Code を起動すると `skills/infographic/SKILL.md` が自動認識されます。
 
 ### Option C: 既存プロジェクトにコピー
 
 ```bash
 # スキル定義をコピー
-cp -r .claude/skills/infographic /path/to/your-project/.claude/skills/
+cp -r skills/infographic /path/to/your-project/skills/
 
 # スクリプトをコピー
 cp -r scripts/ /path/to/your-project/scripts/
-
-# .env をコピー（APIキーを設定済みの場合）
-cp .env /path/to/your-project/.env
 ```
+
+API キーはグローバル設定ファイル（`~/.config/infographic-skill/.env`）を使えば、プロジェクトごとに `.env` をコピーする必要はありません。
 
 ### API キーの取得
 
