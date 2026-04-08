@@ -14,7 +14,7 @@ Gemini API を使ってインフォグラフィック画像を生成する。
 
 ```
 ${CLAUDE_PLUGIN_ROOT}/
-├── .claude/skills/infographic/SKILL.md  ← このファイル
+├── skills/infographic/SKILL.md  ← このファイル
 ├── scripts/
 │   ├── generate-image.py
 │   ├── gemini_client.py
