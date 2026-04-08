@@ -49,21 +49,34 @@ def load_dotenv(env_path: Path) -> dict[str, str]:
 
 
 def get_api_key(project_root: Path) -> str:
-    """Retrieve the Gemini API key from environment or .env file."""
+    """Retrieve the Gemini API key from environment or .env file.
+
+    Search order:
+        1. Environment variable ``Google_Image_API``
+        2. ``.env`` in the current working directory (user's project)
+        3. ``.env`` in the script's project root (plugin install location)
+    """
     key = os.environ.get("Google_Image_API")
     if key:
         return key
 
-    env_path = project_root / ".env"
-    env_vars = load_dotenv(env_path)
-    key = env_vars.get("Google_Image_API")
-    if key:
-        return key
+    # Search cwd first (user's project), then plugin root
+    search_paths = []
+    cwd = Path.cwd()
+    if cwd != project_root:
+        search_paths.append(cwd / ".env")
+    search_paths.append(project_root / ".env")
+
+    for env_path in search_paths:
+        env_vars = load_dotenv(env_path)
+        key = env_vars.get("Google_Image_API")
+        if key:
+            return key
 
     print(
         "Error: API key not found.\n"
-        "Set the 'Google_Image_API' environment variable or add it to "
-        f"{env_path}",
+        "Set the 'Google_Image_API' environment variable or add it to .env\n"
+        f"Searched: {', '.join(str(p) for p in search_paths)}",
         file=sys.stderr,
     )
     sys.exit(1)
