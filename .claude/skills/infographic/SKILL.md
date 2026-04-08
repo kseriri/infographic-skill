@@ -9,11 +9,11 @@ Gemini API を使ってインフォグラフィック画像を生成する。
 
 ## スクリプトの場所
 
-スクリプトはこのSKILL.mdと同じリポジトリ（プラグイン）内にある。
-パスを解決するには、まずこのSKILL.mdファイルの場所から2階層上がってプラグインルートを特定する:
+スクリプトはこのSKILL.mdと同じプラグイン内にある。
+パス参照には `${CLAUDE_PLUGIN_ROOT}` 環境変数を使う（プラグインシステムが自動で設定する）。
 
 ```
-{PLUGIN_ROOT}/
+${CLAUDE_PLUGIN_ROOT}/
 ├── .claude/skills/infographic/SKILL.md  ← このファイル
 ├── scripts/
 │   ├── generate-image.py
@@ -25,14 +25,6 @@ Gemini API を使ってインフォグラフィック画像を生成する。
 │       └── graphic-recording.txt
 └── .env (任意)
 ```
-
-**プラグインとしてインストールされている場合:**
-`~/.claude/plugins/cache/infographic-skill/infographic/*/scripts/generate-image.py`
-
-**リポジトリをクローンして使う場合:**
-`{clone先}/scripts/generate-image.py`
-
-スクリプト実行時は **フルパス** で指定すること。
 
 - デフォルトモデル: `gemini-3-pro-image-preview`
 - API設定: 環境変数 `Google_Image_API` またはユーザーのプロジェクトルートの `.env`
@@ -134,66 +126,58 @@ $ARGUMENTS = "{構成タイプ} {トピックや指示}"
 
 ### Step 3: 画像を生成する
 
-**まずプラグインルートを特定する:**
-```bash
-# プラグインインストールの場合
-PLUGIN_ROOT=$(find ~/.claude/plugins/cache/infographic-skill -name "generate-image.py" -path "*/scripts/*" | head -1 | xargs dirname | xargs dirname)
-
-# クローンの場合はリポジトリルートを使う
-```
-
-`$PLUGIN_ROOT` を使ってスクリプトをフルパスで実行する。出力先はユーザーのプロジェクトに相対パスで指定する。
+`${CLAUDE_PLUGIN_ROOT}` でスクリプトとスタイルファイルを参照する。出力先はユーザーのプロジェクト内（cwdからの相対パス）。
 
 ```bash
 # プレゼン用スライド（コンサル風、16:9）
-python3 "$PLUGIN_ROOT/scripts/generate-image.py" \
+python3 "${CLAUDE_PLUGIN_ROOT}/scripts/generate-image.py" \
   --prompt "日本語プロンプト" \
-  --style-file "$PLUGIN_ROOT/scripts/styles/consulting.txt" \
+  --style-file "${CLAUDE_PLUGIN_ROOT}/scripts/styles/consulting.txt" \
   --aspect 16:9 \
   --output output/{用途フォルダ}/{ファイル名}.png
 
 # ビジネス資料（グラレコ風、16:9）
-python3 "$PLUGIN_ROOT/scripts/generate-image.py" \
+python3 "${CLAUDE_PLUGIN_ROOT}/scripts/generate-image.py" \
   --prompt "日本語プロンプト" \
-  --style-file "$PLUGIN_ROOT/scripts/styles/graphic-recording.txt" \
+  --style-file "${CLAUDE_PLUGIN_ROOT}/scripts/styles/graphic-recording.txt" \
   --aspect 16:9 \
   --output output/{用途フォルダ}/{ファイル名}.png
 
 # ドキュメント用（コンサル風、4:3）
-python3 "$PLUGIN_ROOT/scripts/generate-image.py" \
+python3 "${CLAUDE_PLUGIN_ROOT}/scripts/generate-image.py" \
   --prompt "日本語プロンプト" \
-  --style-file "$PLUGIN_ROOT/scripts/styles/consulting.txt" \
+  --style-file "${CLAUDE_PLUGIN_ROOT}/scripts/styles/consulting.txt" \
   --aspect 4:3 \
   --output output/{用途フォルダ}/{ファイル名}.png
 
 # モチーフ（スタイルなし、1:1）
-python3 "$PLUGIN_ROOT/scripts/generate-image.py" \
+python3 "${CLAUDE_PLUGIN_ROOT}/scripts/generate-image.py" \
   --prompt "日本語プロンプト" \
   --aspect 1:1 \
   --output output/{用途フォルダ}/motif-{名前}.png
 
 # カスタム（スタイルテキスト直接指定）
-python3 "$PLUGIN_ROOT/scripts/generate-image.py" \
+python3 "${CLAUDE_PLUGIN_ROOT}/scripts/generate-image.py" \
   --prompt "日本語プロンプト" \
   --style-prefix "Style: dark tech..." \
   --aspect 16:9 \
   --output output/{用途フォルダ}/{ファイル名}.png
 
 # プロンプトファイルから（長文の場合）
-python3 "$PLUGIN_ROOT/scripts/generate-image.py" \
+python3 "${CLAUDE_PLUGIN_ROOT}/scripts/generate-image.py" \
   --prompt-file output/{用途フォルダ}/prompt-01.txt \
-  --style-file "$PLUGIN_ROOT/scripts/styles/consulting.txt" \
+  --style-file "${CLAUDE_PLUGIN_ROOT}/scripts/styles/consulting.txt" \
   --output output/{用途フォルダ}/slide-01.png
 
 # 複数枚（バリエーション）
-python3 "$PLUGIN_ROOT/scripts/generate-image.py" \
+python3 "${CLAUDE_PLUGIN_ROOT}/scripts/generate-image.py" \
   --prompt "..." \
   --num 3 \
   --output-dir output/{用途フォルダ}/ \
   --name motif-runner
 
 # 低コスト版を使いたい場合
-python3 "$PLUGIN_ROOT/scripts/generate-image.py" \
+python3 "${CLAUDE_PLUGIN_ROOT}/scripts/generate-image.py" \
   --model gemini-3.1-flash-image-preview \
   --prompt "..." \
   --output output/{用途フォルダ}/{ファイル名}.png
