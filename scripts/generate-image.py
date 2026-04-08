@@ -10,8 +10,10 @@ Usage:
 Environment:
     Google_Image_API — Gemini API key (.env or environment variable)
 
-Requires: Python 3.10+
+Requires: Python 3.9+
 """
+
+from __future__ import annotations
 
 import argparse
 import sys
