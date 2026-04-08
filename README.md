@@ -3,14 +3,16 @@
 Claude Code のスキル / プラグインとして動作するインフォグラフィック画像生成ツール。
 Google Gemini API を使って、テキストプロンプトからスライド画像やイラスト素材を生成します。
 
-![Infographic Skill overview](docs/hero.png)
+| Graphic Recording Style | Consulting Style |
+|:-:|:-:|
+| ![Graphic Recording](docs/hero.png) | ![Consulting](docs/sample-consulting.png) |
 
 ## Features
 
-- **スライドモード** — フレームワーク図・比較図・フロー図など、テキスト+イラスト+レイアウトが一体になった完成スライドを生成
-- **モチーフモード** — アイコン・イラスト・モチーフ単体を生成（Canva・Figma等に貼り込む素材として）
+- **5つの構成タイプ** — プレゼン用スライド / ビジネス資料 / ドキュメント用図解 / モチーフ素材 / カスタム
+- **2つのスタイル** — IDEO/McKinsey コンサル風 / グラフィックレコーディング風（カスタムも可）
 - **アスペクト比指定** — 16:9（スライド）、1:1（モチーフ）、4:3、9:16 等をサポート
-- **スタイルプレフィックス** — IDEO/McKinsey風のデフォルトスタイルを自動付与、またはカスタムスタイルを指定可能
+- **プリセットシステム** — 構成 × スタイルの組み合わせで最適なプロンプトを自動設計
 - **複数モデル対応** — Gemini 3 Pro（高品質）/ Gemini 3.1 Flash（低コスト）/ Imagen 4（写実的）
 - **外部依存なし** — Python 標準ライブラリのみで動作（pip install 不要）
 
