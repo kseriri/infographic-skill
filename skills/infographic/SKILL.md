@@ -27,7 +27,12 @@ ${CLAUDE_PLUGIN_ROOT}/
 ```
 
 - デフォルトモデル: `gemini-3-pro-image-preview`
-- API設定: 環境変数 `Google_Image_API` またはユーザーのプロジェクトルートの `.env`
+- Python: 3.9+ 必須
+- API設定（検索順）:
+  1. 環境変数 `Google_Image_API`（`.zshrc` 等に追記して永続化）
+  2. ユーザーのプロジェクトルートの `.env`
+  3. `~/.config/infographic-skill/.env`（グローバル設定、推奨）
+  4. プラグインインストール先の `.env`
 
 ## 引数
 
@@ -259,9 +264,22 @@ Style: [全体のトーン・雰囲気の説明]
 
 | 症状 | 対処 |
 |------|------|
-| API key not found | `.env` に `Google_Image_API` が設定されているか確認 |
+| API key not found | 下記「APIキーのセットアップ」を案内する。**プロジェクトの `.env` への追加は勧めない** |
 | HTTP 429 | レート制限。少し待ってリトライ |
 | HTTP 400 | プロンプトが不適切と判断された可能性。内容を調整 |
 | HTTP 404 | モデルIDが間違っている。`--model` を確認 |
 | 日本語テキストが崩れる | Gemini 3 Pro を使う。それでも崩れる場合はテキスト量を減らす |
 | Content blocked | プロンプトの表現を変更する |
+| `str \| None` TypeError | Python 3.9未満を使用中。`python3 --version` で確認し、3.9+を使う |
+
+### APIキーのセットアップ
+
+APIキーが見つからない場合、以下の手順をユーザーに案内する：
+
+```bash
+# 推奨: グローバル設定ファイル（全プロジェクト共通）
+mkdir -p ~/.config/infographic-skill
+echo 'Google_Image_API=YOUR_KEY_HERE' > ~/.config/infographic-skill/.env
+```
+
+APIキーは [Google AI Studio](https://aistudio.google.com/apikey) で無料取得できる。
