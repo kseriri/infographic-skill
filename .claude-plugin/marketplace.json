@@ -1,0 +1,13 @@
+{
+  "name": "infographic-skill",
+  "owner": {
+    "name": "kseriri"
+  },
+  "plugins": [
+    {
+      "name": "infographic",
+      "source": "./",
+      "description": "Generate infographic and slide images using Google Gemini API. Specialized for business diagrams, framework charts, and motif illustrations."
+    }
+  ]
+}

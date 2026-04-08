@@ -1,0 +1,50 @@
+{
+  "_doc": "プリセット定義。構成（composition）ごとにデフォルトのスタイル・アスペクト比・プロンプト制約を定義する。",
+  "compositions": {
+    "presentation": {
+      "label": "プレゼン用スライド",
+      "description": "キーメッセージ1つ + ビジュアルで伝える。文字は最小限。",
+      "default_style": "consulting",
+      "default_aspect": "16:9",
+      "prompt_suffix": "プレゼンテーションスライド。キーメッセージを大きく、補足テキストは最小限に。視覚的インパクト重視。"
+    },
+    "business-doc": {
+      "label": "ビジネス資料",
+      "description": "情報量多め。フレームワーク図・比較表・フロー図など構造化された情報を1枚に収める。",
+      "default_style": "consulting",
+      "default_aspect": "16:9",
+      "prompt_suffix": "ビジネス資料用の図解。情報を構造化して配置し、テキストと図を組み合わせて1枚で理解できるようにする。"
+    },
+    "document": {
+      "label": "ドキュメント用インフォグラフィック",
+      "description": "記事・ブログ・社内ドキュメントに埋め込む図解。縦長or正方形。読み物の中で目を引く。",
+      "default_style": "consulting",
+      "default_aspect": "4:3",
+      "prompt_suffix": "ドキュメントに埋め込むインフォグラフィック。記事の流れの中で要点を視覚的にまとめる。"
+    },
+    "motif": {
+      "label": "モチーフ／イラスト素材",
+      "description": "スライドやCanva・Figmaに貼り込むイラスト・アイコン単体。テキストなし。",
+      "default_style": null,
+      "default_aspect": "1:1",
+      "prompt_suffix": "テキストや文字は含めない。背景は白。シンプルで洗練されたビジネス向けのスタイル。"
+    },
+    "custom": {
+      "label": "カスタム",
+      "description": "プリセットを使わず、プロンプトを自由に設計する。",
+      "default_style": null,
+      "default_aspect": null,
+      "prompt_suffix": null
+    }
+  },
+  "styles": {
+    "consulting": {
+      "label": "IDEO / McKinsey コンサル風",
+      "file": "consulting.txt"
+    },
+    "graphic-recording": {
+      "label": "グラフィックレコーディング風",
+      "file": "graphic-recording.txt"
+    }
+  }
+}

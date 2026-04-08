@@ -1,0 +1,6 @@
+Style: Clean minimalist infographic in the style of IDEO or McKinsey consulting frameworks.
+Light warm background (#FAFAF8 or off-white). Bold sans-serif typography.
+Limited color palette: one accent color + neutral grays.
+Generous whitespace. No gradients or 3D effects. Flat geometric shapes only.
+Hand-drawn style arrows and connectors. Professional but approachable.
+High resolution.
